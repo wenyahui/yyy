@@ -3,23 +3,34 @@ server:
 #    tomcat:
 #        max-threads: 1000
 #        min-spare-threads: 30
-  port: 80
+  port: 8888
 #    uri-encoding: utf-8
 security:
   basic:
     enabled: false
 spring:
   freemarker:  
-    allow-request-override: false  
+    allow-session-override: false
+    allow-request-override: false 
     cache: false  
-    check-template-location: true  
+    check-template-location: true
+    enabled: true
     charset: UTF-8  
     content-type: text/html; charset=utf-8  
     expose-request-attributes: false  
     expose-session-attributes: false  
     expose-spring-macro-helpers: false  
+    request-context-attribute: request
+    prefer-file-system-access: true
     suffix: .html  
+    number_format: 0.##########
+    datetime_format: yyyy-MM-dd HH:mm:ss
+    template_exception_handler: ignore
     template-loader-path: classpath:/templates/
+    settings: 
+        template_update_delay: 0
+        default_encoding: UTF-8
+        classic_compatible: true 
   jackson:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss

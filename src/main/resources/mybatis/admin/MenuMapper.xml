@@ -53,7 +53,7 @@
 		</where>
 	</select>
 	
-	<select id="queryMenuById">
+	<select id="queryMenuById" resultType="Map">
 		SELECT
 			menu_id menuId,
 			parent_id parentId,
