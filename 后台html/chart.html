@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>www</title>
+<link href="css/backstage.css" rel="stylesheet" type="text/css" />
+<script src="js/jquery-1.7.1.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/backstage.js"></script>
+<!--select2-->
+<link href="css/select2.css" rel="stylesheet" type="text/css" />
+<script src="js/select2.min.js" type="text/javascript"></script>
+<script>
+$(document).ready(function() {
+  $(".list_tit_select").select2();
+});
+</script>
+<!--图表-->
+<script type="text/javascript" src="js/highcharts.js"></script>
+<script type="text/javascript" src="js/exporting.js"></script>
+<script type="text/javascript">
+$(function () {
+    $('#container').highcharts({
+		chart: {
+            type: 'line',
+			backgroundColor:'rgba(255,255,255,0)'
+        },
+        title: {
+            text: '平台客户量',
+            x: -20 
+        },
+        xAxis: {
+			 title: {
+                text: '时间（日）'
+            },
+            categories: [ '1', '2', '3', '4', '5','6', '7', '8', '9', '10', '11','12', '13', '14', '15', '16', '17','18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30']
+        },
+        yAxis: {
+            title: {
+                text: '客户量（人）'
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]
+        },
+        tooltip: {
+            valueSuffix: '人'
+        },
+        series: [{
+            name: '顶呱呱',
+            data: [19, 53, 5, 16, 38, 13, 66, 36, 3, 1, 33, 19,22,35, 28, 36, 2, 33, 32, 16, 33, 18, 9, 9, 5, 16, 38, 13, 66, 36]
+        },{
+            name: '五岳网',
+            data: [12, 3, 55, 56, 32, 43, 46, 26, 23, 18, 13, 9,12,33, 25, 46, 12, 23, 36, 56, 23, 28, 19, 29, 32, 43, 46, 26, 23, 18]
+        }, {
+            name: '小额贷',
+            data: [15, 2, 23, 16, 42, 33, 26, 16, 43, 38, 17, 43,23,13, 5, 26, 42, 13, 46, 26, 43, 18, 22, 39, 16, 43, 38, 17, 43,23]
+        }]
+    });
+});
+</script>
+</head>
+<body>
+<div class="main">
+<div class="page_tit2">
+    <h3>统计图表：</h3>
+    <span><a href="#" class="on">合作平台</a><a href="#">栏目二</a></span></div>
+    <div class="clear_h40"></div><!--绝对定位，page_tit和page_tit2不能同时使用（如果需要同时使用，需要修改top值）-->
+  <!--<div class="page_tit">
+    <h3>店铺管理(按钮):</h3>
+    <span><a href="#" class="on">确认</a><a href="#">消息提示</a><a href="#">确认取消按钮</a></span></div>
+  <div class="clear_h60"></div>-->
+  <div class="page_ts"><h2>操作提示</h2><h3>当店主添加商品时可选择商品分类，用户可根据分类查询商品列表</h3><h3>点击分类名前“+”符号，显示当前分类的下级分类</h3><h3 class="c09c">对分类作任何更改后，都需要到 设置 -> 清理缓存 清理商品分类，新的设置才会生效</h3></div>
+  <div class="list_tit">
+    <span>所属等级：</span>
+    <input type="text" class="w160 mr10" name="" value="" />
+    <span>所属等级：</span>
+    <span class="mr10">
+    <select name="选项" type="text" class="list_tit_select w160" placeholder="默认选项">
+        <option>默认选项</option>
+        <option>选项一</option>
+        <option>选项二</option>
+    </select>
+    </span>
+    <a href="#" class="btn">搜索</a>
+    <div class="clear"></div>
+  </div>
+  <!--图标统计-->
+<div class="m0_20">
+<div id="container" style="width:100%;height:auto"></div>
+</div>
+<div class="clear_h10"></div>
+<div class="sty_btn fr m0_20"><a href="#" class="btn" style="line-height:28px; margin:0; padding:0 20px;">导出excel</a></div>
+<div class="clear_h10"></div>
+  <!--列表内容-->
+  <div class="pro_list sty_btn">
+      <table width="100%" border="0" class="tab_nhov td_nbor">
+        <tr class="list_top">
+          <td width="12%">序号</td>
+          <td width="12%">时间段</td>
+          <td width="12%">最近一月</td>
+          <td width="12%">最近一周</td>
+          <td width="12%">昨天</td>
+          <td width="12%">今天</td>
+          <td width="12%">同比（昨天和今天）</td>
+          <td width="16%">操作</td>
+        </tr>
+        <tr>
+          <td>12345</td>
+          <td>0</td>
+          <td>9</td>
+          <td>27</td>
+          <td>15</td>
+          <td>20</td>
+          <td>增加</td>
+          <td><a href="#" class="c06b">查看详情</a></td>
+        </tr>
+        <tr>
+          <td>12345</td>
+          <td>1</td>
+          <td>9</td>
+          <td>27</td>
+          <td>15</td>
+          <td>20</td>
+          <td>增加</td>
+          <td><a href="#" class="c06b">查看详情</a></td>
+        </tr>
+        <tr>
+          <td>12345</td>
+          <td>2</td>
+          <td>9</td>
+          <td>27</td>
+          <td>15</td>
+          <td>20</td>
+          <td>增加</td>
+          <td><a href="#" class="c06b">查看详情</a></td>
+        </tr>
+        <tr>
+          <td>12345</td>
+          <td>3</td>
+          <td>9</td>
+          <td>27</td>
+          <td>15</td>
+          <td>20</td>
+          <td>增加</td>
+          <td><a href="#" class="c06b">查看详情</a></td>
+        </tr>
+        
+      </table>
+    </div>
+    <div class="clear_h30"></div>
+  
+</div>
+</body>
+</html>

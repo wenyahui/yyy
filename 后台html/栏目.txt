@@ -1,0 +1,35 @@
+
+登录                  login
+
+框架                  index
+
+控制台                center
+
+文章列表              article_list
+
+内容编辑              pro_edit
+
+图文列表              pro_list
+
+订单列表              order_list
+
+类别列表              category_list
+
+保存成功              result
+
+会员信息              mem_show
+
+清除缓存              cache
+
+图表                  chart
+
+
+
+
+
+
+
+
+
+
+

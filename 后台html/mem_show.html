@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>www</title>
+<link href="css/backstage.css" rel="stylesheet" type="text/css" />
+<script src="js/jquery-1.7.1.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/backstage.js"></script>
+<!--select2-->
+<link href="css/select2.css" rel="stylesheet" type="text/css" />
+<script src="js/select2.min.js" type="text/javascript"></script>
+<script>
+$(document).ready(function() {
+  $(".list_tit_select").select2();
+});
+</script>
+</head>
+<body>
+<div class="main">
+<div class="page_tit2">
+    <h3>店铺管理：</h3>
+    <span><a href="#" class="on">栏目一</a><a href="#">栏目二</a><a href="#">栏目三</a></span></div>
+    <div class="clear_h40"></div><!--绝对定位，page_tit和page_tit2不能同时使用（如果需要同时使用，需要修改top值）-->
+  <!--<div class="page_tit">
+    <h3>店铺管理(按钮):</h3>
+    <span><a href="#" class="on">确认</a><a href="#">消息提示</a><a href="#">确认取消按钮</a></span></div>
+  <div class="clear_h60"></div>-->
+  
+  <!--内容-->
+  <div class="mem_info">
+<table width="100%" border="1" bordercolor="">
+  <tr>
+    <td colspan="6" class="tit">公司及联系人信息</td>
+  </tr>
+  <tr>
+    <td class="name">公司名称：</td>
+    <td colspan="5">北京天云聚合</td>
+  </tr>
+  <tr>
+    <td class="name">公司所在地：</td>
+    <td>河南郑州金水区</td>
+    <td class="name">公司详细地址：</td>
+    <td colspan="3">郑州金水区国家大学科技园</td>
+  </tr>
+  <tr>
+    <td class="name">公司电话：</td>
+    <td>123456789</td>
+    <td class="name">员工总数：</td>
+    <td>120人</td>
+    <td class="name">注册资金：</td>
+    <td>1000万</td>
+  </tr>
+  <tr>
+    <td class="name">联系人姓名：</td>
+    <td>王经理</td>
+    <td class="name">联系人电话：</td>
+    <td>15478512369</td>
+    <td class="name">电子邮箱：</td>
+    <td>123456@163.com</td>
+  </tr>
+</table>
+<table width="100%" border="1" bordercolor="" class="list">
+  <tr>
+    <td colspan="6" class="tit">公司及联系人信息</td>
+  </tr>
+  <tr class="list_tit tac">
+    <td>序号</td>
+    <td>报名时间</td>
+    <td>企业信息</td>
+    <td>状态</td>
+  </tr>
+  <tr class="tac">
+    <td>1</td>
+    <td>2015.12.02</td>
+    <td>河南太康九域锅炉行业云平台</td>
+    <td>0</td>
+  </tr>
+</table>
+<table width="100%" border="1" bordercolor="">
+  <tr>
+    <td colspan="6" class="tit">营业执照信息（副本）</td>
+  </tr>
+  <tr>
+    <td class="name">营业执照号：</td>
+    <td>123456789</td>
+  </tr>
+  <tr>
+    <td class="name">营业执电子版：</td>
+    <td><img src="#" /></td>
+  </tr>
+</table>
+
+
+</div>
+</div>
+</body>
+</html>

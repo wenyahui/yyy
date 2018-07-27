@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>www</title>
+<link href="css/backstage.css" rel="stylesheet" type="text/css" />
+<script src="js/jquery-1.7.1.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/backstage.js"></script>
+<!--select2-->
+<link href="css/select2.css" rel="stylesheet" type="text/css" />
+<script src="js/select2.min.js" type="text/javascript"></script>
+<script>
+$(document).ready(function() {
+  $(".list_tit_select").select2();
+});
+</script>
+</head>
+<body>
+<div class="main">
+<div class="page_tit2">
+    <h3>店铺管理：</h3>
+    <span><a href="#" class="on">栏目一</a><a href="#">栏目二</a><a href="#">栏目三</a></span></div>
+    <div class="clear_h40"></div><!--绝对定位，page_tit和page_tit2不能同时使用（如果需要同时使用，需要修改top值）-->
+  <!--<div class="page_tit">
+    <h3>店铺管理(按钮):</h3>
+    <span><a href="#" class="on">确认</a><a href="#">消息提示</a><a href="#">确认取消按钮</a></span></div>
+  <div class="clear_h60"></div>-->
+  <div class="page_ts"><h2>操作提示</h2><h3>当店主添加商品时可选择商品分类，用户可根据分类查询商品列表</h3><h3>点击分类名前“+”符号，显示当前分类的下级分类</h3><h3 class="c09c">对分类作任何更改后，都需要到 设置 -> 清理缓存 清理商品分类，新的设置才会生效</h3></div>
+  <div class="list_tit">
+    <span>所属等级：</span>
+    <input type="text" class="w160 mr10" name="" value="" />
+    <span>所属等级：</span>
+    <span class="mr10">
+    <select name="选项" type="text" class="list_tit_select w160" placeholder="默认选项">
+        <option>默认选项</option>
+        <option>选项一</option>
+        <option>选项二</option>
+    </select>
+    </span>
+    <a href="#" class="btn">搜索</a>
+    <div class="clear"></div>
+  </div>
+  <!--列表内容-->
+  <div class="article_list">
+    <ul>
+      <li class="tit">
+      <span style="width:3%;">选择</span>
+      <span style="width:7%;">编号</span>
+      <span style="width:30%;">名称</span>
+      <span style="width:18%;">所属类别</span>
+      <span style="width:10%;">发布时间</span>
+      <span style="width:10%;">审核状态</span>
+      <span style="width:10%;">排序</span>
+      <span style="width:10%;">操作</span>
+      </li>
+      <li>
+      <span style="width:3%;"><input type="checkbox" name="subBox" /></span>
+      <span style="width:7%;">001</span>
+      <span style="width:30%;"><a href="#">文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题</a></span>
+      <span style="width:18%;">最新资讯</span>
+      <span style="width:10%;">2014-09-17</span>
+      <span style="width:10%;"><a href="javascript:" class="zt on">状态</a></span>
+      <span style="width:10%;"><input type="text" name="" value="1" /></span>
+      <span class="edit" style="width:10%;"><a href="#">详情</a><b>/</b><a href="#">删除</a></span>
+      </li>
+      <li>
+      <span style="width:3%;"><input type="checkbox" name="subBox" /></span>
+      <span style="width:7%;">001</span>
+      <span style="width:30%;"><a href="#">文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题</a></span>
+      <span style="width:18%;">最新资讯</span>
+      <span style="width:10%;">2014-09-17</span>
+      <span style="width:10%;"><a href="javascript:" class="zt">状态</a></span>
+      <span style="width:10%;"><input type="text" name="" value="1" /></span>
+      <span class="edit" style="width:10%;"><a href="#">详情</a><b>/</b><a href="#">删除</a></span>
+      </li>
+        
+    </ul>
+    <div class="clear_h10"></div>
+    <div class="list_btn"><a href="#" class="on">全选</a><a href="#">删除</a><a href="#">标记为已读</a></div>
+    <div class="pp_fan"><span class="zong">共20页，共1520条</span><a class="no">首页</a><a href="#">上一页</a><a href="#" class="on">1</a><a href="#">2</a><a href="#">3</a><span>....</span><a href="#">20</a><a href="#">21</a><a href="#">22</a><a href="#">下一页</a><a href="#">尾页</a>
+      <input class="fan_k" type="text" name="" value="" />
+      <span>/22页</span><a href="javascript:;" onclick=''>跳转</a>
+      <input type="button" class="fan_btn" name="" value="GO" />
+      <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+    <div class="page_btn"><input type="submit" id="input" value="提交保存" name="input" class="btn" /></div>  
+  </div>
+</div>
+</body>
+</html>
