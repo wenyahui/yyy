@@ -114,4 +114,15 @@
   <delete id="delColumns">  
         DELETE FROM t_column WHERE FIND_IN_SET(id,#{ids})  
   </delete>  
+  <select id="checkColumnName" resultType="int">
+  	SELECT
+		count(0)
+	FROM
+		t_column
+	WHERE
+		`name` = #{name}
+	<if test="id!=null and id!=''">
+		AND id != #{id}
+	</if>
+  </select>
 </mapper>

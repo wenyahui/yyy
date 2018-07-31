@@ -84,4 +84,9 @@ public class AColumnController extends BaseController{
 		columnService.delColumn(id);
 		return R.ok();
 	}
+	@RequestMapping("/checkColumnName")
+	@ResponseBody
+	public String checkColumnName(@RequestParam Map<String, Object> paramMap) {
+		return columnService.checkColumnName(paramMap);
+	}
 }

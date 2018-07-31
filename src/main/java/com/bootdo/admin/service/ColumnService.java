@@ -25,4 +25,6 @@ public interface ColumnService {
 	Column queryColumnById(Integer id);
 	
 	void updateColumn(Column column);
+	
+	String checkColumnName(Map<String, Object> paramMap);
 }

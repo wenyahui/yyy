@@ -65,4 +65,14 @@ public class ColumnServiceImpl implements ColumnService{
 		columnDao.updateByPrimaryKey(column);
 	}
 
+	@Override
+	public String checkColumnName(Map<String, Object> paramMap) {
+		int count = columnDao.checkColumnName(paramMap);
+		if(count==0) {
+			return "true";
+		}else {
+			return "false";
+		}
+	}
+
 }

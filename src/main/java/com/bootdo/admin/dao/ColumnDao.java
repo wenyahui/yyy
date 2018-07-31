@@ -23,4 +23,5 @@ public interface ColumnDao {
     void delColumn(Integer id);
     
     void delColumns(String ids);
+	int checkColumnName(Map<String, Object> paramMap);
 }

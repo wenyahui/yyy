@@ -86,7 +86,9 @@ public class AIndexController extends BaseController {
 			return R.error("用户或密码错误");
 		}
 	}
-	
+	public static void main(String[] args) {
+		System.out.println(MD5Utils.encrypt("admin","123456"));
+	}
 	/**
 	 * 
 	* @Title: main 
