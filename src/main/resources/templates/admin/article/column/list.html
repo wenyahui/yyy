@@ -44,7 +44,7 @@ $(document).ready(function() {
 		          <td>${ls.name}</td>
 		          <td>${ls.sortNo}</td>
 		          <td>${ls.createTime?string('yyyy-MM-dd HH:mm')}</td>
-		          <td><a href="javascript:;" tid="${ls.id}" tlvl="1" class="btn btn1 editBtn">编辑</a><a href="javascript:;" tid="${ls.id}" tlvl="1" class="btn btn4 addBtn">添加子菜单</a><a href="javascript:;" tid="${ls.id}" tlvl="1" class="btn btn5 delBtn">删除</a></td>
+		          <td><a href="javascript:;" tid="${ls.id}" class="btn btn1 editBtn">编辑</a><a href="javascript:;" tid="${ls.id}" class="btn btn5 delBtn">删除</a></td>
 		        </tr>
         	</#list>
         </#if>
@@ -56,14 +56,39 @@ $(document).ready(function() {
 <script>
 $(".editBtn").on("click",function(){
 	var tid = $(this).attr("tid");
-	var tlvl = $(this).attr("tlvl");
-	console.info(tid+"---"+tlvl);
-	window.location.href="/MS/menu/edit"+tid;
+	window.location.href="/MS/column/edit_"+tid;
 })
 $(".delBtn").on("click",function(){
 	var tid = $(this).attr("tid");
-	var tlvl = $(this).attr("tlvl");
-	console.info(tid+"---"+tlvl);
+	layer.confirm('确定要删除吗？', {
+		  btn: ['删除','取消'] //按钮
+		}, function(){
+			$.ajax({ 
+		        type:"POST", 
+		        async: false,
+		        url:"/MS/column/del", 
+		        dataType:"json",      
+		        data:{id:tid}, 
+		        success:function(result){
+		        	if (result.code == 0) {
+		        		layer.load(2);
+		        		layer.msg('删除成功!', {icon: 6},function(){
+		        			window.location.href="/MS/column/list";
+		        		});
+					} else {
+						layer.msg('删除失败!', {icon: 5},function(){
+							layer.closeAll('loading');
+		        		});					
+					}
+		        },
+				error:function(e){
+					layer.msg('删除失败!', {icon: 5},function(){
+						layer.closeAll('loading');
+		    		});	
+		   		}
+		     })
+		}, function(){
+		});
 })
 </script>
 </html>

@@ -98,16 +98,19 @@ function save(){
         data:$("#columnForm").serialize(), 
         success:function(result){
         	if (result.code == 0) {
+        		layer.load(2);
         		layer.msg('操作成功!', {icon: 6},function(){
         			window.location.href="/MS/column/list";
         		});
 			} else {
 				layer.msg('操作失败!', {icon: 5},function(){
+					layer.closeAll('loading');
         		});					
 			}
         },
 		error:function(e){
 			layer.msg('操作失败!', {icon: 5},function(){
+				layer.closeAll('loading');
     		});	
    		}
      })

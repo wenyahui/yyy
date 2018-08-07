@@ -62,7 +62,8 @@ public class ColumnServiceImpl implements ColumnService{
 
 	@Override
 	public void updateColumn(Column column) {
-		columnDao.updateByPrimaryKey(column);
+		column.setUpdateTime(new Date());
+		columnDao.updateByPrimaryKeySelective(column);
 	}
 
 	@Override

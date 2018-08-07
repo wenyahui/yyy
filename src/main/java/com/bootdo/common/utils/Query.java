@@ -9,26 +9,26 @@ import java.util.Map;
 public class Query extends LinkedHashMap<String, Object> {
 	private static final long serialVersionUID = 1L;
 	// 
-	private int offset;
+	private int page;
 	// 每页条数
 	private int limit;
 
 	public Query(Map<String, Object> params) {
 		this.putAll(params);
 		// 分页参数
-		this.offset = Integer.parseInt(params.get("offset").toString());
+		this.page = Integer.parseInt(params.get("page").toString());
 		this.limit = Integer.parseInt(params.get("limit").toString());
-		this.put("offset", offset);
-		this.put("page", offset / limit + 1);
+		this.put("page", page);
+		this.put("offset", (page-1)*limit);
 		this.put("limit", limit);
 	}
 
-	public int getOffset() {
-		return offset;
+	public int getPage() {
+		return page;
 	}
 
-	public void setOffset(int offset) {
-		this.put("offset", offset);
+	public void setPage(int page) {
+		this.put("page", page);
 	}
 
 	public int getLimit() {
