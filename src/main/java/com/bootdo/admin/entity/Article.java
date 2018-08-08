@@ -6,6 +6,8 @@ public class Article {
     private Integer id;
 
     private String title;
+    
+    private Integer columnId;
 
     private Integer viewCount;
 
@@ -62,4 +64,12 @@ public class Article {
     public void setContent(String content) {
         this.content = content == null ? null : content.trim();
     }
+
+	public Integer getColumnId() {
+		return columnId;
+	}
+
+	public void setColumnId(Integer columnId) {
+		this.columnId = columnId;
+	}
 }

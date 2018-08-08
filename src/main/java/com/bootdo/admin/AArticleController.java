@@ -22,9 +22,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bootdo.admin.entity.Column;
+import com.bootdo.admin.entity.Article;
+import com.bootdo.admin.service.ArticleService;
 import com.bootdo.admin.service.ColumnService;
 import com.bootdo.common.controller.BaseController;
+import com.bootdo.common.utils.PageUtils;
+import com.bootdo.common.utils.Query;
 import com.bootdo.common.utils.R;
 
 /** 
@@ -36,40 +39,54 @@ import com.bootdo.common.utils.R;
 */
 
 @Controller
-@RequestMapping("/MS/column")
+@RequestMapping("/MS/article")
 public class AArticleController extends BaseController{
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
 	private ColumnService columnService;
+	@Autowired
+	private ArticleService articleService;
 	/**
 	 * 文章栏目列表
 	 * @return
 	 */
 	@RequestMapping("/list")
-	public String list(Model model,@RequestParam Map<String, Object> paramMap) {
-		List<Map<String, Object>> list = columnService.getColumnList(paramMap);
-		model.addAttribute("list", list);
-		return "admin/article/column/list";
+	public String list(Model model) {
+		List<Map<String, Object>> columnList = columnService.getColumnList(null);
+		model.addAttribute("columnList", columnList);
+		return "admin/article/list";
+	}
+	
+	@RequestMapping("/listData")
+	@ResponseBody
+	public PageUtils listData(Model model,@RequestParam Map<String, Object> paramMap) {
+		Query query = new Query(paramMap);
+		List<Map<String, Object>> list = articleService.getArticleList(query);
+		int count = articleService.queryArticleCount(paramMap);
+		PageUtils page = new PageUtils(list, count);
+		return page;
 	}
 
 	@RequestMapping("/edit_{id}")
 	public String toEdit(Model model,@PathVariable Integer id) {
+		List<Map<String, Object>> columnList = columnService.getColumnList(null);
+		model.addAttribute("columnList", columnList);
 		if(id!=null) {
-			Column column = columnService.queryColumnById(id);
-			model.addAttribute("column", column);
+			Article article = articleService.queryArticleById(id);
+			model.addAttribute("article", article);
 		}
-		return "admin/article/column/edit";
+		return "admin/article/edit";
 	}
 	
 	@RequestMapping("/save")
 	@ResponseBody
-	public R save(@ModelAttribute Column column) {
-		if(column!=null) {
-			if(column.getId()!=null) {
-				columnService.updateColumn(column);
+	public R save(@ModelAttribute Article article) {
+		if(article!=null) {
+			if(article.getId()!=null) {
+				articleService.updateArticle(article);
 			}else {
-				columnService.addColumn(column);
+				articleService.addArticle(article);
 			}
 			return R.ok();
 		}else {
