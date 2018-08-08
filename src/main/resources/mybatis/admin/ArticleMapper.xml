@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.bootdo.admin.entity.Article">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="column_id" jdbcType="INTEGER" property="columnId" />
     <result column="view_count" jdbcType="INTEGER" property="viewCount" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
@@ -12,7 +13,7 @@
     <result column="content" jdbcType="LONGVARCHAR" property="content" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, title, view_count, create_time, update_time
+    id, title, column_id, view_count, create_time, update_time
   </sql>
   <sql id="Blob_Column_List">
     content
@@ -33,10 +34,10 @@
         DELETE FROM t_article WHERE FIND_IN_SET(id,#{ids})  
   </delete> 
   <insert id="insert" parameterType="com.bootdo.admin.entity.Article">
-    insert into t_article (id, title, view_count, 
+    insert into t_article (id, title, column_id, view_count, 
       create_time, update_time, content
       )
-    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{viewCount,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{columnId,jdbcType=INTEGER}, #{viewCount,jdbcType=INTEGER}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR}
       )
   </insert>
@@ -48,6 +49,9 @@
       </if>
       <if test="title != null">
         title,
+      </if>
+      <if test="columnId != null">
+        column_id,
       </if>
       <if test="viewCount != null">
         view_count,
@@ -69,6 +73,9 @@
       <if test="title != null">
         #{title,jdbcType=VARCHAR},
       </if>
+      <if test="columnId != null">
+        #{columnId,jdbcType=INTEGER},
+      </if>
       <if test="viewCount != null">
         #{viewCount,jdbcType=INTEGER},
       </if>
@@ -89,6 +96,9 @@
       <if test="title != null">
         title = #{title,jdbcType=VARCHAR},
       </if>
+      <if test="columnId != null">
+        column_id = #{columnId,jdbcType=VARCHAR},
+      </if>
       <if test="viewCount != null">
         view_count = #{viewCount,jdbcType=INTEGER},
       </if>
@@ -107,6 +117,7 @@
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.bootdo.admin.entity.Article">
     update t_article
     set title = #{title,jdbcType=VARCHAR},
+      column_id = #{columnId,jdbcType=INTEGER},
       view_count = #{viewCount,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
@@ -116,6 +127,7 @@
   <update id="updateByPrimaryKey" parameterType="com.bootdo.admin.entity.Article">
     update t_article
     set title = #{title,jdbcType=VARCHAR},
+      column_id = #{columnId,jdbcType=INTEGER},
       view_count = #{viewCount,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
@@ -126,14 +138,18 @@
   	SELECT
 		id,
 		title,
+		column_id columnId,
 		content,
-		view_count,
+		view_count viewCount,
 		create_time createTime
 	FROM
 		t_article
 	where 1=1
 	<if test="title!=null and title!=''">
 		and title CONCAT('%',#{title},'%')
+	</if>
+	<if test="columnId!=null and columnId!=''">
+		and column_id = #{columnId}
 	</if>
 	<choose>
 		<when test="sort != null and sort!= ''">
@@ -143,7 +159,7 @@
 			order by create_time desc
 		</otherwise>
 	</choose>
-	<if test="offset!=null and limit!=null and offset!='' and limit!=''">
+	<if test="offset!=null and limit!=null">
 		limit #{offset},#{limit}
 	</if>
   </select>
@@ -156,6 +172,9 @@
   	where 1=1
   	<if test="title!=null and title!=''">
 		and title CONCAT('%',#{title},'%')
+	</if>
+	<if test="columnId!=null and columnId!=''">
+		and column_id = #{columnId}
 	</if>
   </select>
 </mapper>
