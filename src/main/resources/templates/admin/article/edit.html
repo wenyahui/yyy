@@ -11,17 +11,26 @@
 <script src="/static/admin/js/select2.min.js" type="text/javascript"></script>
 <script src="/static/js/plugins/layer/layer.js" type="text/javascript"></script>
 <script src="/static/js/plugins/validate/jquery.validate.min.js" type="text/javascript"></script>
+<script src="/static/admin/js/wangEditor/wangEditor.min.js" type="text/javascript"></script>
+<style>
+*{
+    word-break: normal;
+}
+.select2-dropdown{
+	z-index: 99999;
+}
+</style>
 <script>
 $(document).ready(function() {
-  $(".edit_select").select2();
+  $(".list_tit_select").select2();
 });
 </script>
 </head>
 <body>
 <div class="main">
 <div class="page_tit2">
-    <h3>店铺管理：</h3>
-    <span><a href="/MS/column/list">菜单列表</a><a href="javascript:;" class="on">新增菜单</a><a href="#">栏目三</a></span></div>
+    <h3>文章管理：</h3>
+    <span><a href="/MS/article/list">文章列表</a><a href="javascript:;" class="on">新增文章</a></span></div>
     <div class="clear_h40"></div><!--绝对定位，page_tit和page_tit2不能同时使用（如果需要同时使用，需要修改top值）-->
   <!--<div class="page_tit">
     <h3>店铺管理(按钮):</h3>
@@ -30,13 +39,26 @@ $(document).ready(function() {
 
   <!--列表内容-->
 <div class="pro_edit sty_btn">
-<form id="columnForm">
+<form id="articleForm">
         <ul>
-        <input type="hidden" value="${column.id}" id="id" name="id"/>
-        <li><span class="name"><b class="cd00">*</b>栏目名称：</span><input type="text" name="name" id="name" value="${column.name}" class="w200" ><span class="ml10 c999">*名称最多6个字符</span></li>
-        <li><span class="name">排序：</span><input type="text" class="w120" name="sortNo" id="sortNo" value="${column.sortNo!1}" ><span class="ml10 c999">*数字越小越靠前,最长允许三位数</span></li>
+        <input type="hidden" value="${article.id}" id="id" name="id"/>
+        <li><span class="name"><b class="cd00">*</b>标题：</span><input type="text" name="title" id="title" value="${article.title}" class="w200" ><span class="ml10 c999">*标题最多30个字符</span></li>
+        <li><span class="name"><b class="cd00">*</b>所属栏目：</span>
+        	<span>
+			    <select id="columnId" name="columnId" type="text" class="list_tit_select w160">
+			        <option value="">-=请选择栏目=-</option>
+			        <#if columnList??>
+			        	<#list columnList as cl>
+					        <option <#if article.columnId==cl.id> selected="selected" </#if> value="${cl.id}">${cl.name}</option>
+			        	</#list>
+			        </#if>
+			    </select>
+			    </span>
+        </li>
+        <li><span class="name"><b class="cd00">*</b>内容：</span><span style="width: 800px;"><div id="content">${article.content}</div></span></li>
         <li><input type="submit" id="saveBtn" value="提交保存" class="sub_btn" /></li>
             </ul>
+            <textarea name="content" id="hideContent" style="display: none;"></textarea>
 <div class="clear"></div>
 </form>
 </div>
@@ -44,43 +66,52 @@ $(document).ready(function() {
 </div>
 </body>
 <script>
-$("#sortNo").on("blur",function(){
-	var reg = /^\d{0,3}$/;
-	var $sortNo = $("#sortNo").val();
-	if($sortNo==''){
-		$("#sortNo").val(1);
-	}
-	if(!reg.test($sortNo)){ 
-		$("#sortNo").val(1);
-	}
-})
 $(function(){
-	$("#columnForm").validate({
+	var E = window.wangEditor;
+    var editor = new E('#content');
+	 editor.customConfig.menus = [
+		'head',  // 标题
+	    'bold',  // 粗体
+	    'fontSize',  // 字号
+	    'fontName',  // 字体
+	    'italic',  // 斜体
+	    'underline',  // 下划线
+	    'strikeThrough',  // 删除线
+	    'foreColor',  // 文字颜色
+	    'backColor',  // 背景颜色
+	    'link',  // 插入链接
+	    'list',  // 列表
+	    'justify',  // 对齐方式
+	    'quote',  // 引用
+	    'image',  // 插入图片
+	    'table',  // 表格
+	    'code',  // 插入代码
+	    'undo',  // 撤销
+	    'redo'  // 重复
+    ]
+	editor.customConfig.uploadImgServer = '/upload/upyun';
+	editor.customConfig.uploadImgMaxSize = 10 * 1024 * 1024;
+	editor.customConfig.uploadFileName = 'file';
+    editor.create()
+    
+	$("#articleForm").validate({
 		onkeyup:false,
 	  		rules: {
-	  			name:{
+	  			title:{
 	  				required:true,
-	  				maxlength:6,
-	  				remote: {
-	 	  	  	      	url: "/MS/column/checkColumnName",
-	 		  	  	    type: "post",
-	 		  	  	    dataType: "json",
-	 		  	  	    data: {
-	 		  	  	   		name: function() {
-	 								return $("#name").val();
-	 			  	  	     },
-	 			  	  	     id: function(){
-	 			  	  	    		return $("#id").val();
-	 			  	  	     }
-	 			  	  	}
-	 	  	  	     }
+	  				maxlength:30
+	  			},
+				columnId:{
+	  				required:true
 	  			}
   			},
   	    messages: {
-  	    	name:{
+  	    	title:{
   	    		required:"请填写栏目名称",
-  	    		maxlength:"最大长度不能超过6",
-  	    		remote:"栏目已存在"
+  	    		maxlength:"最大长度不能超过30"
+  	    	},
+  	    	columnId:{
+  	    		required:"选个栏目吧"
   	    	}
   	    },
         submitHandler:function(form){
@@ -88,19 +119,24 @@ $(function(){
           	return false;
         }    
     });
-})
 function save(){
+	if(editor.txt.text()==""){
+		layer.msg('请添加内容!', {icon: 5},function(){
+		});		
+		return;
+	}
+	$("#hideContent").val(editor.txt.html());
 	$.ajax({ 
         type:"POST", 
         async: false,
-        url:"/MS/column/save", 
+        url:"/MS/article/save", 
         dataType:"json",      
-        data:$("#columnForm").serialize(), 
+        data:$("#articleForm").serialize(), 
         success:function(result){
         	if (result.code == 0) {
         		layer.load(2);
         		layer.msg('操作成功!', {icon: 6},function(){
-        			window.location.href="/MS/column/list";
+        			window.location.href="/MS/article/list";
         		});
 			} else {
 				layer.msg('操作失败!', {icon: 5},function(){
@@ -115,5 +151,6 @@ function save(){
    		}
      })
 }
+})
 </script>
 </html>

@@ -12,6 +12,7 @@
 <!-- pagin -->
 <link href="/static/admin/js/pagin/pagination.css" rel="stylesheet" type="text/css" />
 <script src="/static/admin/js/pagin/jquery.pagination.js" type="text/javascript"></script>
+<script src="/static/js/plugins/layer/layer.js" type="text/javascript"></script>
 <script>
 $(document).ready(function() {
   $(".list_tit_select").select2();
@@ -22,7 +23,7 @@ $(document).ready(function() {
 <div class="main">
 <div class="page_tit2">
     <h3>文章管理：</h3>
-    <span><a href="javascript:;" class="on">文章列表</a><a href="/MS/column/edit_">新增栏目</a></span></div>
+    <span><a href="javascript:;" class="on">文章列表</a><a href="/MS/article/edit_">新增文章</a></span></div>
     <div class="clear_h40"></div><!--绝对定位，page_tit和page_tit2不能同时使用（如果需要同时使用，需要修改top值）-->
   <!--<div class="page_tit">
     <h3>店铺管理(按钮):</h3>
@@ -47,8 +48,8 @@ $(document).ready(function() {
     <div class="clear"></div>
   </div>
   
-  <div class="pro_list sty_btn" id="list">
-      <table width="100%" border="0" class="tab_nhov td_nbor">
+  <div class="pro_list sty_btn" >
+      <table width="100%" border="0" class="tab_nhov td_nbor" id="list">
         <tr class="list_top">
           <td width="10%">序号</td>
           <td width="30%">标题</td>
@@ -92,7 +93,8 @@ $(function() {
     }  
   
   
-    function Init(pageIndex) { // 参数就是点击的那个分页的页数索引值  
+    function Init(pageIndex) { // 参数就是点击的那个分页的页数索引值 
+    	layer.load(2);
     	var columnId = $("#columnId").val();
     	var title = $("#title").val();
         $.ajax({  
@@ -105,34 +107,28 @@ $(function() {
                         // 赋值total，用于计算  
                         total = data.total;  
                         //拼接html(这个部分根据自己的需求去实现)  
-                        var list = data.pList;  
-                        <tr>
-      		          <td>${ls_index+1}</td>
-      		          <td>${ls.name}</td>
-      		          <td>${ls.sortNo}</td>
-      		          <td>${ls.createTime?string('yyyy-MM-dd HH:mm')}</td>
-      		          <td><a href="javascript:;" tid="${ls.id}" class="btn btn1 editBtn">编辑</a><a href="javascript:;" tid="${ls.id}" class="btn btn5 delBtn">删除</a></td>
-      		        </tr>
-                        var html = '<tr>'  
+                        var list = data.rows;  
+                        $(".addTr").remove();
+                        var html = '<tr class="addTr">'  
                         for (var i = 0; i < list.length; i++) {  
-                            html += "<td>" + i+1 + "</td><td>"+list[i].name+"</td><td>"+list[i].columnName+"</td>"  
+                            html += "<td>" + i+1 + "</td><td>"+list[i].title+"</td><td>"+list[i].columnName+"</td><td>"+list[i].createTime+"</td>"
+                            +'<td><a href="javascript:;" tid='+list[i].id+' class="btn btn1 editBtn">编辑</a><a href="javascript:;" tid='+list[i].id+' class="btn btn5 delBtn">删除</a></td>'; 
                         }  
-                        html += '</div>';  
-                        $('.list').html(html)  */ 
-  
+                        html += '</tr>';  
+                        $('#list').append(html); 
+                        layer.closeAll('loading');
   
                     },  
                     error : function() {  
+                    	layer.closeAll('loading');
                         alert("请求超时，请重试！");  
                     }  
                 });  
     };  
-});  
-$(".editBtn").on("click",function(){
-	var tid = $(this).attr("tid");
-	window.location.href="/MS/column/edit_"+tid;
-})
-$(".delBtn").on("click",function(){
+    $("#searchBtn").on("click",function(){
+    	Init(1);
+    })
+    $(".delBtn").on("click",function(){
 	var tid = $(this).attr("tid");
 	layer.confirm('确定要删除吗？', {
 		  btn: ['删除','取消'] //按钮
@@ -140,14 +136,14 @@ $(".delBtn").on("click",function(){
 			$.ajax({ 
 		        type:"POST", 
 		        async: false,
-		        url:"/MS/column/del", 
+		        url:"/MS/article/del", 
 		        dataType:"json",      
 		        data:{id:tid}, 
 		        success:function(result){
 		        	if (result.code == 0) {
 		        		layer.load(2);
 		        		layer.msg('删除成功!', {icon: 6},function(){
-		        			window.location.href="/MS/column/list";
+		        			window.location.href="/MS/article/list";
 		        		});
 					} else {
 						layer.msg('删除失败!', {icon: 5},function(){
@@ -164,5 +160,10 @@ $(".delBtn").on("click",function(){
 		}, function(){
 		});
 })
+$(".editBtn").on("click",function(){
+	var tid = $(this).attr("tid");
+	window.location.href="/MS/article/edit_"+tid;
+})
+});  
 </script>
 </html>

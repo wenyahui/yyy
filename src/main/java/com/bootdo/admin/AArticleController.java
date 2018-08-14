@@ -98,12 +98,7 @@ public class AArticleController extends BaseController{
 	@RequestMapping("/del")
 	@ResponseBody
 	public R del(@RequestParam Integer id) {
-		columnService.delColumn(id);
+		articleService.delArticle(id);
 		return R.ok();
-	}
-	@RequestMapping("/checkColumnName")
-	@ResponseBody
-	public String checkColumnName(@RequestParam Map<String, Object> paramMap) {
-		return columnService.checkColumnName(paramMap);
 	}
 }

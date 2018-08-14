@@ -10,6 +10,14 @@ public class R extends HashMap<String, Object> {
 		put("code", 0);
 		put("msg", "操作成功");
 	}
+	public R(boolean flag, String url) {
+		if(flag) {
+			put("errno", 0);
+			put("data", new String[] {url});
+		}else {
+			put("errno", 1);
+		}
+	}
 
 	public static R error() {
 		return error(1, "操作失败");

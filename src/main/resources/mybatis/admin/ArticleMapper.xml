@@ -139,14 +139,22 @@
 		id,
 		title,
 		column_id columnId,
+		(
+			SELECT
+				NAME
+			FROM
+				t_column
+			WHERE
+				id = column_id
+		) columnName,
 		content,
 		view_count viewCount,
-		create_time createTime
+		date_format(create_time,'%Y-%m-%d %H:%i') createTime
 	FROM
 		t_article
 	where 1=1
 	<if test="title!=null and title!=''">
-		and title CONCAT('%',#{title},'%')
+		and title like CONCAT('%',#{title},'%')
 	</if>
 	<if test="columnId!=null and columnId!=''">
 		and column_id = #{columnId}
@@ -171,7 +179,7 @@
   		t_article 
   	where 1=1
   	<if test="title!=null and title!=''">
-		and title CONCAT('%',#{title},'%')
+		and title like CONCAT('%',#{title},'%')
 	</if>
 	<if test="columnId!=null and columnId!=''">
 		and column_id = #{columnId}
